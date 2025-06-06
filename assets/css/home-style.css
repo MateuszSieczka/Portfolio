@@ -77,12 +77,49 @@ body {
   background-color: #ddd;
 }
 
-/* Main Content (Video Container) */
+/* Podstawowe ustawienia (fallback / domyślne dla najszerszych ekranów - komputery) */
 main {
   position: relative;
-  width: 93vw;
-  aspect-ratio: 16/9;
-  overflow: hidden;
+  /* Zachowuje maksymalną szerokość 93vw, ale skaluje się, by nie przekroczyć dostępnej wysokości (minus nawigacja i marginesy) */
+  width: min(93vw, calc(100vh - 60px - 20px) * 16 / 9);
+  height: min(calc(93vw * 9 / 16), calc(100vh - 60px - 20px));
+  aspect-ratio: 16/9; /* Proporcje dla komputerów */
+}
+
+/* --- */
+
+/* Tablety (od 768px do 1024px) */
+@media (min-width: 650px) and (max-width: 1024px) {
+  main {
+    /* Skalowanie dla proporcji 1:1 (kwadrat) */
+    width: min(
+      90vw,
+      calc(100vh - 60px - 20px)
+    ); /* Będzie to mniejsza z 90vw lub dostępnej wysokości */
+    height: min(
+      90vw,
+      calc(100vh - 60px - 20px)
+    ); /* Wysokość równa szerokości */
+    aspect-ratio: 1/1; /* Proporcje kwadratowe */
+  }
+}
+
+/* --- */
+
+/* Małe ekrany (telefony, do 767px) */
+@media (max-width: 650px) {
+  main {
+    /* Skalowanie dla proporcji 9/16 (wertykalne wideo) */
+    width: min(
+      calc(100vh - 60px - 20px) * 9 / 16,
+      93vw
+    ); /* Szerokość dopasowana do wysokości i 9/16 */
+    height: min(
+      calc(93vw * 16 / 9),
+      calc(100vh - 60px - 20px)
+    ); /* Wysokość dopasowana do szerokości i 9/16 */
+    aspect-ratio: 9/16; /* Proporcje pionowe */
+  }
 }
 
 main video {
@@ -99,7 +136,6 @@ main video {
   position: absolute;
   width: calc(60% + 2px); /* Adjusted for gap */
   height: calc(50% + 2px); /* Adjusted for gap */
-  overflow: hidden;
   transition: backdrop-filter 0.5s ease-out;
   z-index: 1;
 }
@@ -279,7 +315,7 @@ main video {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 1);
-  background-image: url("resources/grain.png");
+  background-image: url("../img/grain.png");
   background-repeat: repeat;
   background-size: 20vw;
 
@@ -334,89 +370,4 @@ main video {
   main {
     aspect-ratio: 9/16;
   }
-}
-
-/* Add this to your home-style.css */
-
-.base.touch-active {
-  backdrop-filter: blur(5px);
-}
-
-.base.touch-active .background-div::before {
-  opacity: 0.3;
-}
-
-.base.touch-active .content-div {
-  opacity: 1;
-  font-size: 2vw; /* Ensure this matches the desktop hover size */
-  z-index: 1;
-  cursor: pointer;
-}
-
-/* Also need to handle the .quad transition for touch-active */
-#q1_base.touch-active #q1 {
-  clip-path: polygon(
-    0% 0%,
-    0% 0%,
-    0% 100%,
-    66.67% 100%,
-    100% 0%,
-    0% 0%,
-    0% 0%,
-    100% 0%,
-    66.67% 100%,
-    0% 100%
-  );
-}
-
-#q2_base.touch-active #q2 {
-  clip-path: polygon(
-    100% 0%,
-    100% 100%,
-    0% 100%,
-    33.34% 0%,
-    33.34% 0%,
-    33.34% 0%,
-    0% 100%,
-    100% 100%,
-    100% 0%,
-    33.34% 0%,
-    33.34% 0%
-  );
-}
-
-#q3_base.touch-active #q3 {
-  clip-path: polygon(
-    0% 0%,
-    0% 0%,
-    0% 100%,
-    100% 100%,
-    66.67% 0%,
-    0% 0%,
-    0% 0%,
-    66.67% 0%,
-    100% 100%,
-    0% 100%
-  );
-}
-
-#q4_base.touch-active #q4 {
-  clip-path: polygon(
-    100% 0%,
-    100% 100%,
-    33.34% 100%,
-    0% 0%,
-    0% 0%,
-    0% 0%,
-    33.34% 100%,
-    100% 100%,
-    100% 0%,
-    0% 0%,
-    0% 0%
-  );
-}
-
-/* Ensure the .quad h2 text remains visible on touch-active */
-.base.touch-active .quad h2 {
-  opacity: 1; /* Override any fade-out that might occur */
 }
