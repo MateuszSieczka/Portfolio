@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap");
+
 *,
 *::before,
 *::after {
@@ -7,6 +9,7 @@
 }
 
 body {
+  font-family: "Montserrat", sans-serif;
   background: #1f2116;
   display: flex;
   align-items: center;
@@ -57,7 +60,7 @@ body {
 }
 
 .site-title {
-  font-size: 1.8vw;
+  font-size: 1.5em;
 }
 
 .menu-icon {
@@ -77,48 +80,26 @@ body {
   background-color: #ddd;
 }
 
-/* Podstawowe ustawienia (fallback / domyślne dla najszerszych ekranów - komputery) */
 main {
   position: relative;
-  /* Zachowuje maksymalną szerokość 93vw, ale skaluje się, by nie przekroczyć dostępnej wysokości (minus nawigacja i marginesy) */
   width: min(93vw, calc(100vh - 60px - 20px) * 16 / 9);
   height: min(calc(93vw * 9 / 16), calc(100vh - 60px - 20px));
-  aspect-ratio: 16/9; /* Proporcje dla komputerów */
+  aspect-ratio: 16/9;
 }
 
-/* --- */
-
-/* Tablety (od 768px do 1024px) */
 @media (min-width: 650px) and (max-width: 1024px) {
   main {
-    /* Skalowanie dla proporcji 1:1 (kwadrat) */
-    width: min(
-      90vw,
-      calc(100vh - 60px - 20px)
-    ); /* Będzie to mniejsza z 90vw lub dostępnej wysokości */
-    height: min(
-      90vw,
-      calc(100vh - 60px - 20px)
-    ); /* Wysokość równa szerokości */
-    aspect-ratio: 1/1; /* Proporcje kwadratowe */
+    width: min(90vw, calc(100vh - 60px - 20px));
+    height: min(90vw, calc(100vh - 60px - 20px));
+    aspect-ratio: 1/1;
   }
 }
 
-/* --- */
-
-/* Małe ekrany (telefony, do 767px) */
 @media (max-width: 650px) {
   main {
-    /* Skalowanie dla proporcji 9/16 (wertykalne wideo) */
-    width: min(
-      calc(100vh - 60px - 20px) * 9 / 16,
-      93vw
-    ); /* Szerokość dopasowana do wysokości i 9/16 */
-    height: min(
-      calc(93vw * 16 / 9),
-      calc(100vh - 60px - 20px)
-    ); /* Wysokość dopasowana do szerokości i 9/16 */
-    aspect-ratio: 9/16; /* Proporcje pionowe */
+    width: min(calc(100vh - 60px - 20px) * 9 / 16, 93vw);
+    height: min(calc(93vw * 16 / 9), calc(100vh - 60px - 20px));
+    aspect-ratio: 9/16;
   }
 }
 
@@ -134,8 +115,8 @@ main video {
 
 .base {
   position: absolute;
-  width: calc(60% + 2px); /* Adjusted for gap */
-  height: calc(50% + 2px); /* Adjusted for gap */
+  width: calc(60% + 2px);
+  height: calc(50% + 2px);
   transition: backdrop-filter 0.5s ease-out;
   z-index: 1;
 }
